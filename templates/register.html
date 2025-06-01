@@ -21,70 +21,19 @@
     <div class="container">
         <h2>Hackathon Registration</h2>
         <form method="POST" autocomplete="off">
-            <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" required>
+            <label for="team_name">Team Name:</label>
+            <input type="text" id="team_name" name="team_name" required>
 
-            <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" required>
-
-            <label for="email">Email ID:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="institute">Institute/University Name:</label>
-            <input type="text" id="institute" name="institute" required>
-
-            <label for="branch">Engineering Branch:</label>
-            <input type="text" id="branch" name="branch" required>
-
-            <label for="year">Year:</label>
-            <select id="year" name="year" required>
-                <option value="" disabled selected>Select year</option>
-                <option value="First">First</option>
-                <option value="Second">Second</option>
-                <option value="Third">Third</option>
-                <option value="Fourth">Fourth</option>
+            <label for="team_size">Number of Team Members:</label>
+            <select id="team_size" name="team_size" required onchange="updateMemberFields()">
+                <option value="" disabled selected>Select team size</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
             </select>
 
-            <label for="state">State:</label>
-            <select id="state" name="state" required>
-                <option value="" disabled selected>Select State</option>
-                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                <option value="Assam">Assam</option>
-                <option value="Bihar">Bihar</option>
-                <option value="Chhattisgarh">Chhattisgarh</option>
-                <option value="Goa">Goa</option>
-                <option value="Gujarat">Gujarat</option>
-                <option value="Haryana">Haryana</option>
-                <option value="Himachal Pradesh">Himachal Pradesh</option>
-                <option value="Jharkhand">Jharkhand</option>
-                <option value="Karnataka">Karnataka</option>
-                <option value="Kerala">Kerala</option>
-                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                <option value="Maharashtra">Maharashtra</option>
-                <option value="Manipur">Manipur</option>
-                <option value="Meghalaya">Meghalaya</option>
-                <option value="Mizoram">Mizoram</option>
-                <option value="Nagaland">Nagaland</option>
-                <option value="Odisha">Odisha</option>
-                <option value="Punjab">Punjab</option>
-                <option value="Rajasthan">Rajasthan</option>
-                <option value="Sikkim">Sikkim</option>
-                <option value="Tamil Nadu">Tamil Nadu</option>
-                <option value="Telangana">Telangana</option>
-                <option value="Tripura">Tripura</option>
-                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                <option value="Uttarakhand">Uttarakhand</option>
-                <option value="West Bengal">West Bengal</option>
-                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                <option value="Chandigarh">Chandigarh</option>
-                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-                <option value="Delhi">Delhi</option>
-                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                <option value="Ladakh">Ladakh</option>
-                <option value="Lakshadweep">Lakshadweep</option>
-                <option value="Puducherry">Puducherry</option>
-            </select>
+            <div id="members-section"></div>
 
             <label for="problem">Select Problem Statement:</label>
             <select id="problem" name="problem" required>
@@ -100,16 +49,98 @@
             </div>
         </form>
 
+        <script>
+        function memberFieldsHtml(idx) {
+            return `
+            <div class="member-block">
+                <h4>Member ${idx+1} Details</h4>
+                <label for="first_name_${idx}">First Name:</label>
+                <input type="text" id="first_name_${idx}" name="first_name_${idx}" required>
+                <label for="last_name_${idx}">Last Name:</label>
+                <input type="text" id="last_name_${idx}" name="last_name_${idx}" required>
+                <label for="state_${idx}">State:</label>
+                <select id="state_${idx}" name="state_${idx}" required>
+                    <option value="" disabled selected>Select State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Puducherry">Puducherry</option>
+                </select>
+                <label for="email_${idx}">Email ID:</label>
+                <input type="email" id="email_${idx}" name="email_${idx}" required>
+                <label for="institute_${idx}">Institute/University Name:</label>
+                <input type="text" id="institute_${idx}" name="institute_${idx}" required>
+                <label for="branch_${idx}">Engineering Branch:</label>
+                <input type="text" id="branch_${idx}" name="branch_${idx}" required>
+                <label for="year_${idx}">Year:</label>
+                <select id="year_${idx}" name="year_${idx}" required>
+                    <option value="" disabled selected>Select year</option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                    <option value="Fourth">Fourth</option>
+                </select>
+            </div>
+            `;
+        }
+        function updateMemberFields() {
+            var size = document.getElementById('team_size').value;
+            var section = document.getElementById('members-section');
+            section.innerHTML = '';
+            for (let i = 0; i < size; i++) {
+                section.innerHTML += memberFieldsHtml(i);
+            }
+        }
+        </script>
+
         {% if registration %}
         <div class="result">
-            <h3>Registration Details</h3>
-            <p><strong>First Name:</strong> {{ registration.first_name }}</p>
-            <p><strong>Last Name:</strong> {{ registration.last_name }}</p>
-            <p><strong>State:</strong> {{ registration.state }}</p>
-            <p><strong>Email:</strong> {{ registration.email }}</p>
-            <p><strong>Institute/University:</strong> {{ registration.institute }}</p>
-            <p><strong>Branch:</strong> {{ registration.branch }}</p>
-            <p><strong>Year:</strong> {{ registration.year }}</p>
+            <h3>Team: {{ registration.team_name }}</h3>
+            <h4>Number of Members: {{ registration.team_size }}</h4>
+            {% for member in registration.members %}
+                <div class="member-block">
+                    <h4>Member {{ loop.index }} Details</h4>
+                    <p><strong>First Name:</strong> {{ member.first_name }}</p>
+                    <p><strong>Last Name:</strong> {{ member.last_name }}</p>
+                    <p><strong>State:</strong> {{ member.state }}</p>
+                    <p><strong>Email:</strong> {{ member.email }}</p>
+                    <p><strong>Institute/University:</strong> {{ member.institute }}</p>
+                    <p><strong>Branch:</strong> {{ member.branch }}</p>
+                    <p><strong>Year:</strong> {{ member.year }}</p>
+                </div>
+            {% endfor %}
             <p><strong>Selected Problem Statement:</strong> {{ registration.problem }}</p>
         </div>
         {% endif %}
