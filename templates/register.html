@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Registration</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; }
+        .container { max-width: 500px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px #ccc; }
+        h2 { text-align: center; }
+        label { display: block; margin-top: 15px; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; }
+        .btn-group { margin-top: 20px; display: flex; justify-content: space-between; }
+        button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .submit-btn { background: #007bff; color: #fff; }
+        .reset-btn { background: #6c757d; color: #fff; }
+        .result { background: #e9ffe9; padding: 15px; border-radius: 6px; margin-top: 25px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Hackathon Registration</h2>
+        <form method="POST" autocomplete="off">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email ID:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="institute">Institute/University Name:</label>
+            <input type="text" id="institute" name="institute" required>
+
+            <label for="branch">Engineering Branch:</label>
+            <input type="text" id="branch" name="branch" required>
+
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year" required>
+
+            <label for="problem">Select Problem Statement:</label>
+            <select id="problem" name="problem" required>
+                <option value="" disabled selected>Select a problem</option>
+                {% for p in problems %}
+                <option value="{{ p }}">{{ p }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="btn-group">
+                <button type="submit" name="submit" class="submit-btn">Submit</button>
+                <button type="reset" class="reset-btn">Reset</button>
+            </div>
+        </form>
+
+        {% if registration %}
+        <div class="result">
+            <h3>Registration Details</h3>
+            <p><strong>Name:</strong> {{ registration.name }}</p>
+            <p><strong>Email:</strong> {{ registration.email }}</p>
+            <p><strong>Institute/University:</strong> {{ registration.institute }}</p>
+            <p><strong>Branch:</strong> {{ registration.branch }}</p>
+            <p><strong>Year:</strong> {{ registration.year }}</p>
+            <p><strong>Selected Problem Statement:</strong> {{ registration.problem }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
