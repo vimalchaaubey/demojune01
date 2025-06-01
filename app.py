@@ -15,7 +15,9 @@ def register():
     registration = None
     if request.method == 'POST' and 'submit' in request.form:
         registration = {
-            'name': request.form['name'],
+            'first_name': request.form['first_name'],
+            'last_name': request.form['last_name'],
+            'state': request.form['state'],
             'email': request.form['email'],
             'institute': request.form['institute'],
             'branch': request.form['branch'],
